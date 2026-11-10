@@ -23,7 +23,6 @@
 #' This function is vectorized and returns 0 for values outside the support.
 #'
 #' @examples
-#' dramdex(0.2)
 #' dramdex(0.7)
 #'
 #' @export

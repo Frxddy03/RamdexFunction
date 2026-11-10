@@ -46,7 +46,7 @@
 #' observed frequencies with the theoretical probabilities.
 #'
 #' @examples
-#' sample <- amdex(1000)
+#' sample <- ramdex(100)
 #' chisqramdex(sample)
 #'
 #' @importFrom fdth fdt

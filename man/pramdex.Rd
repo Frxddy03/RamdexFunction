@@ -17,14 +17,14 @@ Evaluates the cumulative distribution function (CDF) of the Ramdex
 continuous distribution at given values of \code{x}.
 }
 \details{
-The Ramdex distribution is defined on the interval [-1, 1]. Its
+The Ramdex distribution is defined on the interval [0, 1]. Its
 cumulative distribution function is:
 
 \deqn{
 F(x) =
 \begin{cases}
-0, & x \leq -1 \\
-\frac{(x + 1)^3}{8}, & -1 < x < 1 \\
+0, & x \leq 0 \\
+\frac{x^2 + x^4}{2}, & 0 < x < 1 \\
 1, & x \geq 1
 \end{cases}
 }
@@ -32,7 +32,7 @@ F(x) =
 This function is vectorized and returns values in the interval [0, 1].
 }
 \examples{
-pramdex(0)
-pramdex(c(-1, -0.5, 0, 0.5, 1))
+pramdex(0.5)
+pramdex(c(0, 0.25, 0.5, 0.75, 1))
 
 }

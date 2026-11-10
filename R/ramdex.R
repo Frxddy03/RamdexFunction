@@ -23,7 +23,7 @@
 #'
 #' @examples
 #' # Generate 100 random values
-#' ramdex(100)
+#' sample <- ramdex(100)
 #'
 #' @importFrom stats runif
 #' @export
