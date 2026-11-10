@@ -1,19 +1,19 @@
-#' @title Chi-square Goodness-of-Fit Test for a Sample of the Ramdex Distribution
+#' @title Chi-square Goodness-of-Fit Test for a Sample of the Amdex Distribution
 #'
 #' @description
 #' Performs a chi-square goodness-of-fit test comparing the observed
-#' frequencies of a sample with the theoretical probabilities of the Ramdex
+#' frequencies of a sample with the theoretical probabilities of the Amdex
 #' distribution:
 #'
 #' \deqn{
 #' f(x) =
 #' \begin{cases}
-#' \frac{3}{8}(x+1)^2, & -1 < x < 1 \\
+#' x + 2x^3, & 0 \leq x \leq 1 \\
 #' 0, & \text{otherwise}
 #' \end{cases}
 #' }
 #'
-#' The support [-1, 1] is divided into intervals of width 0.2.
+#' The support [0, 1] is divided into intervals of width 0.2.
 #'
 #' @param sample A numeric vector of observations to be evaluated.
 #'
@@ -30,23 +30,23 @@
 #' \itemize{
 #'   \item \eqn{H_0: \pi = \hat{\pi}}, meaning that the observed
 #'   distribution is consistent with the theoretical probabilities of the
-#'   Ramdex distribution.
+#'   Amdex distribution.
 #'
 #'   \item \eqn{H_1: \pi \neq \hat{\pi}}, meaning that the observed
-#'   distribution differs from the theoretical probabilities of the Ramdex
-#'   distribution.
+#'   distribution differs from the theoretical probabilities of the
+#'   Amdex distribution.
 #' }
 #'
-#' The interval [-1, 1] is divided into ten intervals of width 0.2.
+#' The interval [0, 1] is divided into five intervals of width 0.2.
 #' The theoretical probabilities for each interval are calculated as
-#' differences of the cumulative distribution function \code{pramdex()}.
+#' differences of the cumulative distribution function \code{pamdex()}.
 #'
 #' The observed frequencies are obtained from the supplied sample using
 #' \code{fdth::fdt()}. Finally, \code{stats::chisq.test()} compares the
 #' observed frequencies with the theoretical probabilities.
 #'
 #' @examples
-#' sample <- ramdex(1000)
+#' sample <- amdex(1000)
 #' chisqramdex(sample)
 #'
 #' @importFrom fdth fdt
@@ -54,9 +54,9 @@
 #'
 #' @export
 chisqramdex <- function(sample){
-  xvals <- seq(-1, 1, 0.2)
+  xvals <- seq(0, 1, 0.2)
   probs <- diff(pramdex(x = xvals))
-  fr <- fdt(x = sample, start = -1, end = 1, h = 0.2)
+  fr <- fdt(x = sample, start = 0, end = 1, h = 0.2)
   fa <- fr$table$f
   res <- chisq.test(x = fa, p = probs)
   c(

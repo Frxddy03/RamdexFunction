@@ -2,23 +2,23 @@
 #'
 #' @description
 #' Generates pseudo-random numbers from a continuous distribution
-#' on [-1, 1] using the inverse transform method.
+#' on [0, 1] using the inverse transform method.
 #'
 #' @param n Integer. Number of pseudo-random values to generate.
 #'
 #' @details
 #' The probability density function is:
-#' \deqn{f(x) = \frac{3(x + 1)^2}{8}, \quad -1 \leq x \leq 1.}
+#' \deqn{f(x) = x + 2x^3, \quad 0 \leq x \leq 1.}
 #'
 #' The cumulative distribution function on this interval is:
-#' \deqn{F(x) = \frac{(x + 1)^3}{8}.}
+#' \deqn{F(x) = \frac{x^2 + x^4}{2}.}
 #'
 #' This function uses the inverse CDF:
-#' \deqn{F^{-1}(u) = 2u^{1/3} - 1,}
+#' \deqn{F^{-1}(u) = \sqrt{\frac{-1 + \sqrt{1 + 8u}}{2}},}
 #' where \eqn{u \sim U(0,1)}.
 #'
 #' @return
-#' A numeric vector of length \code{n} with values in [-1, 1]
+#' A numeric vector of length \code{n} with values in [0, 1]
 #' following the defined distribution.
 #'
 #' @examples
@@ -26,9 +26,8 @@
 #' ramdex(100)
 #'
 #' @importFrom stats runif
-#'
 #' @export
 ramdex <- function(n){
   u <- runif(n)
-  2*u^(1/3) - 1
+  sqrt((-1 + sqrt(1 + 8*u))/2)
 }
