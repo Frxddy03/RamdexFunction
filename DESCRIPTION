@@ -1,6 +1,6 @@
 Package: RamdexFunction
 Type: Package
-Title: Simulation and Goodness-of-Fit Testing for a Custom Continuous Distribution
+Title: Simulate and Goodness-of-Fit Tests for an Unknown Continuous Distribution
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -25,7 +25,7 @@ Authors@R: c(
     )
   )
 Maintainer: Freddy Tomala <freddy.tomala@espoch.edu.ec>
-Description: Provides functions for evaluating the density and cumulative distribution functions of a custom continuous distribution, generating random values using the inverse transform method, and performing a chi-square goodness-of-fit test.
+Description: It provides functions to calculate the density and cumulative distribution functions of an unknown continuous distribution, generate pseudorandom values using the inverse transform method, and perform a chi-square goodness-of-fit test
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
