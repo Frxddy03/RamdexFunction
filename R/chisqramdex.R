@@ -1,0 +1,67 @@
+#' @title Chi-square Goodness-of-Fit Test for a Sample of the Ramdex Distribution
+#'
+#' @description
+#' Performs a chi-square goodness-of-fit test comparing the observed
+#' frequencies of a sample with the theoretical probabilities of the Ramdex
+#' distribution:
+#'
+#' \deqn{
+#' f(x) =
+#' \begin{cases}
+#' \frac{3}{8}(x+1)^2, & -1 < x < 1 \\
+#' 0, & \text{otherwise}
+#' \end{cases}
+#' }
+#'
+#' The support [-1, 1] is divided into intervals of width 0.2.
+#'
+#' @param sample A numeric vector of observations to be evaluated.
+#'
+#' @return A named numeric vector with:
+#' \itemize{
+#'   \item statistic: Chi-square test statistic.
+#'   \item df: Degrees of freedom.
+#'   \item p.val: p-value of the test.
+#' }
+#'
+#' @details
+#' The function evaluates the following hypotheses:
+#'
+#' \itemize{
+#'   \item \eqn{H_0: \pi = \hat{\pi}}, meaning that the observed
+#'   distribution is consistent with the theoretical probabilities of the
+#'   Ramdex distribution.
+#'
+#'   \item \eqn{H_1: \pi \neq \hat{\pi}}, meaning that the observed
+#'   distribution differs from the theoretical probabilities of the Ramdex
+#'   distribution.
+#' }
+#'
+#' The interval [-1, 1] is divided into ten intervals of width 0.2.
+#' The theoretical probabilities for each interval are calculated as
+#' differences of the cumulative distribution function \code{pramdex()}.
+#'
+#' The observed frequencies are obtained from the supplied sample using
+#' \code{fdth::fdt()}. Finally, \code{stats::chisq.test()} compares the
+#' observed frequencies with the theoretical probabilities.
+#'
+#' @examples
+#' sample <- ramdex(1000)
+#' chisqramdex(sample)
+#'
+#' @importFrom fdth fdt
+#' @importFrom stats chisq.test
+#'
+#' @export
+chisqramdex <- function(sample){
+  xvals <- seq(-1, 1, 0.2)
+  probs <- diff(pramdex(x = xvals))
+  fr <- fdt(x = sample, start = -1, end = 1, h = 0.2)
+  fa <- fr$table$f
+  res <- chisq.test(x = fa, p = probs)
+  c(
+    "statistic" = as.numeric(res$statistic),
+    "df" = as.numeric(res$parameter),
+    "p.val" = res$p.value
+  )
+}
